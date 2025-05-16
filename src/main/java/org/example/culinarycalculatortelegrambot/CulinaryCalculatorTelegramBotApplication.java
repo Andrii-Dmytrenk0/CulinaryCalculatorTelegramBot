@@ -1,4 +1,4 @@
-package org.example.CulinaryCalculatorTelegramBot;
+package org.example.culinarycalculatortelegrambot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
