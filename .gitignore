@@ -31,3 +31,14 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Spring Boot конфигурация (если хранишь токены в application.properties)
+src/main/resources/application.properties
+
+# .env файл (если будешь использовать для переменных окружения)
+.env
+
+# Логи
+*.log
+logs/
+

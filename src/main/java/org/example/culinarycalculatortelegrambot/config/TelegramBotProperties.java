@@ -1,4 +1,4 @@
-package org.example.culinarycalculatortelegrambot.telegramapi.telegramcontrollers.config;
+package org.example.culinarycalculatortelegrambot.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

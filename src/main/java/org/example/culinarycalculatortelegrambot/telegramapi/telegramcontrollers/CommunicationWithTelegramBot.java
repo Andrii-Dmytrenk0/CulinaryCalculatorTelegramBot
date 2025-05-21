@@ -1,6 +1,6 @@
 package org.example.culinarycalculatortelegrambot.telegramapi.telegramcontrollers;
 
-import jakarta.annotation.PostConstruct;
+import org.example.culinarycalculatortelegrambot.config.TelegramBotProperties;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -9,6 +9,12 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Component
 public class CommunicationWithTelegramBot extends TelegramLongPollingBot {
+
+    private final TelegramBotProperties botProperties;
+
+    public CommunicationWithTelegramBot(TelegramBotProperties botProperties) {
+        this.botProperties = botProperties;
+    }
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -33,12 +39,12 @@ public class CommunicationWithTelegramBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return "CulinaryCalculatorTelegramBot"; // Замените на имя вашего бота
+        return botProperties.getUsername();
     }
 
     @Override
     public String getBotToken() {
-        return "8091928144:AAHgLtW5mIIcLYKYYCVNODL7aHgQCGHas9g"; // Ваш токен
+        return botProperties.getToken();
     }
 }
 
