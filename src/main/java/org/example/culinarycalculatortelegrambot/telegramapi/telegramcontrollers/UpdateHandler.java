@@ -1,6 +1,6 @@
 package org.example.culinarycalculatortelegrambot.telegramapi.telegramcontrollers;
 
-import org.example.culinarycalculatortelegrambot.telegramapi.TelegramBotService;
+import org.example.culinarycalculatortelegrambot.telegramapi.Connector;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -9,10 +9,10 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 @Service
 public class UpdateHandler {
 
-    private final TelegramBotService botService;
+    private final Connector connector;
 
-    public UpdateHandler(@Lazy TelegramBotService botService) {
-        this.botService = botService;
+    public UpdateHandler(@Lazy Connector botService) {
+        this.connector = botService;
     }
 
     public void handle(Update update) {
@@ -28,7 +28,7 @@ public class UpdateHandler {
 
     private void processPong(Long chatId) {
         var msg = new SendMessage(chatId.toString(), "pong");
-        botService.send(msg);
+        connector.send(msg);
     }
 
     private static Long fetchChatId(Update update) {

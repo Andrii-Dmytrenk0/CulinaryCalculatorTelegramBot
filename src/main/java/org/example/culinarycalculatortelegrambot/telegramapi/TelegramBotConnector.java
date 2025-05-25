@@ -1,6 +1,6 @@
 package org.example.culinarycalculatortelegrambot.telegramapi;
 
-import org.example.culinarycalculatortelegrambot.config.TelegramBotProperties;
+import org.example.culinarycalculatortelegrambot.config.BotConfiguration;
 import org.example.culinarycalculatortelegrambot.telegramapi.telegramcontrollers.UpdateHandler;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -10,13 +10,13 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Service
-public class TelegramBotServiceImpl extends TelegramLongPollingBot implements TelegramBotService {
+public class TelegramBotConnector extends TelegramLongPollingBot implements Connector {
 
-    private final TelegramBotProperties properties;
+    private final BotConfiguration config;
     private final UpdateHandler updateHandler;
 
-    public TelegramBotServiceImpl(TelegramBotProperties properties,@Lazy UpdateHandler updateHandler) {
-        this.properties = properties;
+    public TelegramBotConnector(BotConfiguration config, @Lazy UpdateHandler updateHandler) {
+        this.config = config;
         this.updateHandler = updateHandler;
     }
 
@@ -31,12 +31,12 @@ public class TelegramBotServiceImpl extends TelegramLongPollingBot implements Te
 
     @Override
     public String getBotUsername() {
-        return properties.getUsername();
+        return config.getUsername();
     }
 
     @Override
     public String getBotToken() {
-        return properties.getToken();
+        return config.getToken();
     }
 
     @Override
