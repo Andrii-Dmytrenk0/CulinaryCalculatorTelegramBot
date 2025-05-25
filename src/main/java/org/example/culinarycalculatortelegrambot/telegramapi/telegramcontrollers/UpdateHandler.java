@@ -3,6 +3,7 @@ package org.example.culinarycalculatortelegrambot.telegramapi.telegramcontroller
 import org.example.culinarycalculatortelegrambot.telegramapi.TelegramBotService;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Service
@@ -14,17 +15,32 @@ public class UpdateHandler {
         this.botService = botService;
     }
 
-    public void handleUpdate(Update update) {
-        if (update.hasMessage() && update.getMessage().hasText()) {
-            String text = update.getMessage().getText().trim();
-            Long chatId = update.getMessage().getChatId();
-            System.out.println("Chat ID: " + chatId);
+    public void handle(Update update) {
+        if (hasValidMessage(update)) {
+            String text = fetchText(update);
+            Long chatId = fetchChatId(update);
 
             if ("ping".equalsIgnoreCase(text)) {
-                botService.sendMessageToChat(chatId, "pong");
+                processPong(chatId);
             }
-            // Можно добавить логику для других команд
         }
+    }
+
+    private void processPong(Long chatId) {
+        var msg = new SendMessage(chatId.toString(), "pong");
+        botService.send(msg);
+    }
+
+    private static Long fetchChatId(Update update) {
+        return update.getMessage().getChatId();
+    }
+
+    private static String fetchText(Update update) {
+        return update.getMessage().getText().trim();
+    }
+
+    private static boolean hasValidMessage(Update update) {
+        return update.hasMessage() && update.getMessage().hasText();
     }
 }
 

@@ -21,11 +21,7 @@ public class TelegramBotServiceImpl extends TelegramLongPollingBot implements Te
     }
 
     @Override
-    public void sendMessageToChat(Long chatId, String text) {
-        SendMessage message = new SendMessage();
-        message.setChatId(String.valueOf(chatId));
-        message.setText(text);
-
+    public void send(SendMessage message) {
         try {
             execute(message);
         } catch (TelegramApiException e) {
@@ -45,6 +41,6 @@ public class TelegramBotServiceImpl extends TelegramLongPollingBot implements Te
 
     @Override
     public void onUpdateReceived(Update update) {
-        updateHandler.handleUpdate(update);
+        updateHandler.handle(update);
     }
 }
